@@ -1,0 +1,102 @@
+{
+    "S001": {
+      "name": "Aman Sharma",
+      "age": 21,
+      "branch": "CSE",
+      "college": "ABC Institute of Technology",
+      "cgpa": 8.5,
+      "skills": ["C++", "DSA", "Python"],
+      "company": "TCS",
+      "package": 7.0
+    },
+    "S002": {
+      "name": "Neha Verma",
+      "age": 22,
+      "branch": "IT",
+      "college": "XYZ Engineering College",
+      "cgpa": 8.9,
+      "skills": ["Java", "Spring Boot", "SQL"],
+      "company": "Infosys",
+      "package": 6.5
+    },
+    "S003": {
+      "name": "Rohit Singh",
+      "age": 21,
+      "branch": "CSE",
+      "college": "ABC Institute of Technology",
+      "cgpa": 7.8,
+      "skills": ["Python", "Machine Learning", "Pandas"],
+      "company": "Wipro",
+      "package": 5.5
+    },
+    "S004": {
+      "name": "Priya Mehta",
+      "age": 22,
+      "branch": "ECE",
+      "college": "LMN College of Engineering",
+      "cgpa": 8.2,
+      "skills": ["Embedded Systems", "C", "IoT"],
+      "company": "Capgemini",
+      "package": 6.0
+    },
+    "S005": {
+      "name": "Karan Patel",
+      "age": 21,
+      "branch": "CSE",
+      "college": "XYZ Engineering College",
+      "cgpa": 9.1,
+      "skills": ["JavaScript", "React", "Node.js"],
+      "company": "Accenture",
+      "package": 8.0
+    },
+    "S006": {
+      "name": "Sneha Reddy",
+      "age": 22,
+      "branch": "IT",
+      "college": "ABC Institute of Technology",
+      "cgpa": 8.7,
+      "skills": ["Python", "Django", "REST API"],
+      "company": "Cognizant",
+      "package": 6.8
+    },
+    "S007": {
+      "name": "Arjun Gupta",
+      "age": 21,
+      "branch": "CSE",
+      "college": "LMN College of Engineering",
+      "cgpa": 7.5,
+      "skills": ["C++", "DSA", "Operating Systems"],
+      "company": "HCL",
+      "package": 5.0
+    },
+    "S008": {
+      "name": "Pooja Nair",
+      "age": 22,
+      "branch": "ECE",
+      "college": "XYZ Engineering College",
+      "cgpa": 8.3,
+      "skills": ["VLSI", "Verilog", "Digital Design"],
+      "company": "Tech Mahindra",
+      "package": 5.8
+    },
+    "S009": {
+      "name": "Rahul Das",
+      "age": 21,
+      "branch": "IT",
+      "college": "ABC Institute of Technology",
+      "cgpa": 7.9,
+      "skills": ["SQL", "Data Analysis", "Excel"],
+      "company": "IBM",
+      "package": 6.2
+    },
+    "S010": {
+      "name": "Anjali Kapoor",
+      "age": 22,
+      "branch": "CSE",
+      "college": "LMN College of Engineering",
+      "cgpa": 9.3,
+      "skills": ["Python", "AI", "Deep Learning"],
+      "company": "Google",
+      "package": 18.0
+    }
+  }
