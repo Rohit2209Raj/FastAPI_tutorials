@@ -1,6 +1,6 @@
 #  An api to fetch data from placement data;
 
-from fastapi import FastAPI,HTTPException
+from fastapi import FastAPI,HTTPException,Query
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel,Field
 from typing import Annotated,Literal,Optional
@@ -20,7 +20,7 @@ class Placement(BaseModel):
 
 
 class Placement_update(BaseModel):
-    name:Annotated[str,Field(Optionaldescription="Enter the student name:")]
+    name:Annotated[str,Field(Optional,description="Enter the student name:")]
     age:Annotated[int,Field(Optional,description="Enter the student age:")]
     branch:Annotated[str,Field(Optional,description="Enter the student branch:")]
     college:Annotated[str,Field(Optional,description="Enter the student college:")]
@@ -47,24 +47,99 @@ def home():
 def home():
     return {'message':'Get information about placed students'}
 
+# Better version made below
+# @app.get('/data')
+# def getdata():
+#     data=load_data()
+#     return data
 
-@app.get('/data')
-def getdata():
-    data=load_data()
-    return data
+# Better could have name it /student/id
+# login below is not good
+# @app.get('/data/{id}') 
+# def getdata(id:str):
 
-@app.get('/data/{id}')
+#     # load data
+#     data=load_data()
+
+#     # transfering logic here
+#     valid_features=['name','branch','college','company']
+
+#     if  id in valid_features:
+#         return get_feature(id)
+#     elif id != 'id':
+#          raise HTTPException(status_code=400,detail='Not a valid Entry')
+#     else:
+#         # check
+#         if id in data:
+#             return data[id]
+        
+#         else:
+#             raise HTTPException(status_code=400,detail='Student not present in data')
+    
+
+
+@app.get('/student/{id}') 
 def getdata(id:str):
 
     # load data
     data=load_data()
-
     # check
     if id in data:
-        return data[id]
-    
+        return data[id]    
     else:
-       raise HTTPException(status_code=400,detail='Student not present in data')
+        raise HTTPException(status_code=400,detail='Student not present in data')
+  
+@app.get('/data')
+def get_data(
+    name: Optional[str] = Query(None, description="Name of the student"),
+    # age: Optional[int] = Query(None, description="Age of the student"),
+    branch: Optional[str] = Query(None),
+    college: Optional[str] = Query(None),
+    min_cgpa: Optional[float] = Query(None),
+    max_cgpa: Optional[float] = Query(None),
+    skills: Optional[str] = Query(None),
+    company: Optional[str] = Query(None),
+    min_package: Optional[float] = Query(None),
+    max_package: Optional[float] = Query(None)
+):
+    # load data
+    data=load_data()
+
+    # Now traversing and checking
+    result=[]
+    result=list(data.values())
+
+    # for string features
+    if name:
+        result=[s for s in result if  s['name']==name]
+    if branch:
+        result=[s for s in result if  s['branch']==branch]
+    if college:
+        result=[s for s in result if  s['college']==college]
+    if company:
+        result=[s for s in result if  s['company']==company]
+    if skills:
+         result = [s for s in result if skills.lower() in [skill.lower() for skill in s["skills"]]]
+    # for range and numerical feastures
+
+    if min_package:
+        result=[s for s in result if  s['package']>=min_package]
+    if max_package:
+        result=[s for s in result if  s['package']<=max_package]
+    if min_cgpa:
+        result=[s for s in result if  s['cgpa']>=min_cgpa]
+    if max_cgpa:
+        result=[s for s in result if  s['cgpa']<=max_cgpa]
+
+    
+    return result
+
+    
+
+    
+
+
+
     
 @app.get('/sort/{sort_by}/{order_by}')
 def sort_data(sort_by:str,order_by:str):
