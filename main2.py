@@ -3,7 +3,7 @@
 from fastapi import FastAPI,HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel,Field
-from typing import Annotated,Literal
+from typing import Annotated,Literal,Optional
 import json
 app=FastAPI()
 
@@ -17,6 +17,17 @@ class Placement(BaseModel):
     skills:Annotated[list[str],Field(...,description="Enter the student skills:")]
     company:Annotated[str,Field(...,description="Enter the placement company:")]
     package:Annotated[float,Field(...,description="Enter the student package:")]
+
+
+class Placement_update(BaseModel):
+    name:Annotated[str,Field(Optionaldescription="Enter the student name:")]
+    age:Annotated[int,Field(Optional,description="Enter the student age:")]
+    branch:Annotated[str,Field(Optional,description="Enter the student branch:")]
+    college:Annotated[str,Field(Optional,description="Enter the student college:")]
+    cgpa:Annotated[float,Field(Optional,description="Enter the student cgpa:")]
+    skills:Annotated[list[str],Field(Optional,description="Enter the student skills:")]
+    company:Annotated[str,Field(Optional,description="Enter the placement company:")]
+    package:Annotated[float,Field(Optional,description="Enter the student package:")]
 
 def load_data():
     with open('placement.json','r') as f:
@@ -75,7 +86,7 @@ def sort_data(sort_by:str,order_by:str):
                        )
     return sorted_data
 
-@app.post('/create/{new_student}')
+@app.post('/create')
 def create(new_student:Placement):
 
     # load data
@@ -91,7 +102,58 @@ def create(new_student:Placement):
 
     save_data(data)
 
-    raise JSONResponse(status_code=400,content='Student added succesfully')
+    return JSONResponse(status_code=200,content='Student added succesfully')
+
+
+
+@app.put('/edit/{id}')
+def edit(id:str,new_data:Placement_update):
+
+    # load data
+    data=load_data()
+
+    # check
+
+    if id not in data:
+        raise HTTPException(status_code=200,detail='Student Not Found')
+    
+    # create a dictionary out of pydanctic_update object
+
+    new_dict=new_data.model_dump(exclude_unset=True)
+
+
+    # change new_dict key and val in normal dict of that particular student
+
+    # particular student
+    student=data[id]
+
+    for key,value in new_dict.items():
+        student[key]=value
+
+    save_data(data)
+
+    return JSONResponse(status_code=200,content='Student details edited succesfully')
+
+
+@app.delete('/delete/{id}')
+def delete(id:str):
+    # load data
+    data=load_data()
+
+    # check
+    if id not in data:
+        raise HTTPException(status_code=200,detail='Student Not Found')
+    del data[id]
+
+    save_data(data)
+
+    return JSONResponse(status_code=400,content='Student deleted succesfully')
+
+
+
+
+
+    
 
 
 
