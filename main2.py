@@ -130,17 +130,8 @@ def get_data(
         result=[s for s in result if  s['cgpa']>=min_cgpa]
     if max_cgpa:
         result=[s for s in result if  s['cgpa']<=max_cgpa]
-
-    
-    return result
-
-    
-
-    
-
-
-
-    
+        
+    return result   
 @app.get('/sort/{sort_by}/{order_by}')
 def sort_data(sort_by:str,order_by:str):
 
